@@ -1,0 +1,28 @@
+-- Create a coffee shop database
+CREATE TABLE coffee_shop (id integer, name text, quantity integer, type text, price integer);
+
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (1, "coffee", 40, "drink", 2); 
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (2, "latte", 20, "drink", 4);
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (3, "iced coffee", 20, "drink", 3); 
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (4, "mocha", 22, "drink", 5); 
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (5, "white mocha", 28, "drink", 5); 
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (6, "lavender latte", 18, "drink", 5); 
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (7, "cafe miel", 15, "drink", 5); 
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (8, "sugar cookie", 15, "food", 2); 
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (9, "rice crispy", 16, "food", 2);
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (10, "pretzel", 40, "food", 3);
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (11, "rose latte", 23, "drink", 5);
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (12, "spicy mocha", 17, "drink", 5);
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (13, "heartbreaker", 19, "drink", 5);
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (14, "ice queen", 20, "drink", 4);
+INSERT INTO coffee_shop (id, name, quantity, type, price) VALUES (15, "heart cookie", 33, "food", 3);
+SELECT * FROM coffee_shop ORDER BY price;
+
+--display the total number of items
+SELECT SUM(quantity) FROM coffee_shop;
+
+--display the database ordered by price. 
+SELECT * FROM coffee_shop ORDER BY price desc; 
+
+--what is the avg price of drink items? 
+SELECT AVG(price) FROM coffee_shop WHERE type='drink';
