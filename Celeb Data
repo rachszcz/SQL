@@ -1,0 +1,32 @@
+CREATE TABLE celebs (id INTEGER PRIMARY KEY, name TEXT, bandname TEXT , genre TEXT);
+INSERT INTO celebs VALUES 
+(1, "Billie Joe Armstrong", "Green Day", "Rock"),
+(2, "Fergie", "Black Eyed Peas", "Pop"),
+(3, "Adam Lazzara", "Taking Back Sunday", "Alternative"),
+(4, "Jennifer Nettles", "Sugarlnad", "Country"),
+(5, "Joe Elliot", "Def Leppard", "Rock");
+
+
+CREATE TABLE hobbies (id INTEGER PRIMARY KEY, celeb_id INTEGER, hobby_name TEXT);
+INSERT INTO hobbies VALUES
+(1, 1, "Swimming"),
+(2, 1, "Cooking"),
+(3, 1, "Billiards"),
+(4, 2, "Bird Watching"),
+(5, 2, "Cooking"),
+(6, 3, "Billiards"),
+(7, 3, "Snow Shoeing"),
+(8, 3, "Ice Skating"),
+(9, 4, "Sky Diving"),
+(10, 4, "Bird Watching"),
+(11, 5, "Scuba Diving");
+
+CREATE TABLE collab (id INTEGER PRIMARY KEY, celeb_id1 INTEGER, celeb_id2 INTEGER);
+INSERT INTO collab VALUES
+(1,1,2),
+(2,1,5),
+(3,3,4);
+
+SELECT celebs.name, hobbies.hobby_name FROM celebs JOIN hobbies on hobbies.celeb_id = celebs.id;
+
+SELECT a.name, b.name FROM collab JOIN celebs a ON collab.celeb_id1 = a.id JOIN celebs b ON collab.celeb_id2 = b.id;
