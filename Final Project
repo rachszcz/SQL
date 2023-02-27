@@ -1,4 +1,40 @@
 #1 Show Customers (their full names, customer ID, and country) who are not in the US. 
-      SELECT FirstName, LastName, Customerid, Country FROM customers
+      SELECT FirstName, LastName, Customerid, Country FROM chinook.customers
       WHERE Country != 'USA';
       
+#2 Show only the Customers from Brazil.
+      SELECT * FROM chinook.ustomers
+      WHERE Country = 'Brazil';
+      
+#3 Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, 
+Date of the invoice, and billing country.
+      SELECT chinook.customers.FirstName, chinook.customers.LastName, chinook.invoices.InvoiceId, 
+      chinook.invoices.InvoiceDate, chinook.invoices.BillingCountry 
+      FROM chinook.invoices 
+      LEFT JOIN chinook.customers
+      ON chinook.customers.CustomerId = chinook.invoices.CustomerId
+      WHERE chinook.customers.Country = 'Brazil'
+      
+#4 Show the Employees who are Sales Agents.
+      SELECT * FROM chinook.employees
+      WHERE Title = 'Sales Support Agent'
+      
+#5 Find a unique/distinct list of billing countries from the Invoice table.
+      SELECT DISTINCT BillingCountry FROM chinook.invoices
+      
+#6 Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+      SELECT chinook.employees.FirstName, chinook.employees.LastName, chinook.invoices.InvoiceId
+      FROM chinook.invoices JOIN chinook.customers 
+      ON chinook.invoices.CustomerId = chinook.customers.CustomerId
+      JOIN chinook.employees
+      ON chinook.customers.SupportRepId = chinook.employees.EmployeeId
+      
+#7 Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+      SELECT SUM(chinook.invoices.Total), chinook.customers.FirstName, chinook.customers.LastName, chinook.customers.Country, 
+      chinook.employees.FirstName, chinook.employees.LastName
+      FROM chinook.invoices
+      JOIN chinook.customers
+      ON chinook.invoices.CustomerId = chinook.customers.CustomerId
+      JOIN chinook.employees
+      ON chinook.customers.SupportRepId = chinook.employees.EmployeeId
+      GROUP BY chinook.customers.FirstName
