@@ -38,3 +38,45 @@ Date of the invoice, and billing country.
       JOIN chinook.employees
       ON chinook.customers.SupportRepId = chinook.employees.EmployeeId
       GROUP BY chinook.customers.FirstName
+
+#8 How many Invoices were there in 2009? 
+      SELECT COUNT(*) FROM invoices 
+      WHERE InvoiceDate LIKE "2009%"
+      
+#9 What are the total sales for 2009?
+      SELECT SUM(Total) FROM invoices
+      WHERE InvoiceDate LIKE "2009%"
+      
+#10 Write a query that includes the purchased track name with each invoice line ID
+      SELECT t.Name, i.InvoiceLineId FROM tracks t
+      JOIN invoice_items i
+      ON t.TrackID = i.TrackId
+      
+#11 Write a query that includes the purchased track name and artist name with each invoice line ID
+      SELECT t.Name AS Track, ar.Name AS Artist, i.InvoiceLineId FROM chinook.tracks t
+      JOIN chinook.invoice_items i
+      ON t.TrackID = i.TrackId
+      JOIN chinook.albums a
+      ON t.Albumid = a.Albumid
+      JOIN chinook.artists ar
+      ON a.ArtistId = ar.ArtistID 
+      
+#12 Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre
+      SELECT t.Name AS track_name, a.Title AS album_name, m.Name AS media_type, g.Name AS genre FROM chinook.tracks t
+      JOIN chinook.albums a
+      ON t.AlbumId = t.Albumid
+      JOIN chinook.media_types m
+      ON t.MediaTypeId = m.MediaTypeId
+      JOIN chinook.genres g
+      ON t.GenreId = g.GenreID
+     
+#13 Show the total sales made by each sales agent.
+      SELECT emp.FirstName, emp.LastName,
+      ROUND(SUM(Inv.Total), 2) as 'Total Sales' 
+      FROM chinook.Employees emp
+      JOIN chinook.Customers cust 
+      ON cust.SupportRepId = emp.EmployeeId
+      JOIN chinook.Invoices Inv 
+      ON Inv.CustomerId = cust.CustomerId
+      WHERE emp.Title = 'Sales Support Agent' 
+      GROUP BY emp.FirstName;
