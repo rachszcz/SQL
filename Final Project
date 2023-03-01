@@ -80,3 +80,40 @@ Date of the invoice, and billing country.
       ON Inv.CustomerId = cust.CustomerId
       WHERE emp.Title = 'Sales Support Agent' 
       GROUP BY emp.FirstName;
+
+#14 What is the most popular genre?
+      SELECT COUNT(t.GenreId) AS genre_count, g.Name AS genre_name
+      FROM chinook.tracks t 
+      JOIN chinook.genres g
+      ON t.GenreId = g.GenreId
+      GROUP BY g.GenreId
+      ORDER BY COUNT(t.GenreId) DESC
+      LIMIT 1
+#16 List the track name and which playlist they are on
+      SELECT t.Name AS track_name, p.Name AS playlist_name
+      FROM chinook.tracks t
+      JOIN chinook.playlist_track pt
+      ON t.TrackId = pt.TrackId
+      JOIN chinook.playlists p
+      ON pt.PlaylistId = p.PlaylistId
+#17 What were the total sales for Canada?
+      SELECT SUM(Total) FROM invoices
+      WHERE invoices.BillingCountry = 'Canada'
+#18 List the album name and genre
+      Select a.Title AS album_name, g.Name AS genre
+      FROM chinook.albums a
+      JOIN chinook.tracks t
+      ON a.AlbumId = t.AlbumId
+      JOIN chinook.genres g
+      ON t.GenreId = g.GenreId
+      GROUP BY a.Title
+#19 What is the total sales from the media type “MPEG audio file”?
+      SELECT m.Name, SUM(i.Total)
+      FROM chinook.media_types m
+      JOIN chinook.tracks t
+      ON m.MediaTypeId = t.MediaTypeId
+      JOIN chinook.invoice_items ii
+      ON t.TrackId = ii.TrackId
+      JOIN chinook.invoices i
+      ON ii.InvoiceId = i.InvoiceId
+      WHERE m.Name = 'MPEG audio file'
